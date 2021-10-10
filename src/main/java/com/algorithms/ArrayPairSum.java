@@ -1,3 +1,9 @@
+package com.algorithms;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /*
     Check the sum pairs
     { 2, 2, 3 } k = 4, returns (2, 2)
@@ -7,11 +13,10 @@ class CodingProblem {
   // Test method
   public static void main(String[] args) {
     int[] array = new int[]{ 1, 1, 2 };
-    List<PairNumber> list = getArrayPairsSum(array);
+    List<PairNumber> list = getArrayPairsSum(array, 3);
     System.out.println(list);
 
-    int[] array = new int[]{8, 1, 0, 2, 11, 12, 5, 3, 9, 4} ;
-    list = getArrayPairsSum(array);
+    list = getArrayPairsSumSort(array, 3);
     System.out.println(list);
   }
 
@@ -19,12 +24,9 @@ class CodingProblem {
   static List<PairNumber> getArrayPairsSum(int[] array, int targetValue) {
     List<PairNumber> list = new ArrayList<>();
     for(int i = 0; i < array.length; i++) {
-      for (int j = i; j < array.length; j++) {
-        if (i == j)
-          continue;
-
+      for (int j = i + 1; j < array.length; j++) {
         if (array[i] + array[j] == targetValue) {
-          list.add(new PairNumber(array[i], array[j]);
+          list.add(new PairNumber(array[i], array[j]));
         }
       }
     }
@@ -32,7 +34,18 @@ class CodingProblem {
     return list;
   }
 
-  class PairNumber {
+  static List<PairNumber> getArrayPairsSumSort(int[] array, int targetValue) {
+    List<PairNumber> list = new ArrayList<>();
+    Arrays.sort(array);
+    for(int i = 0; i < array.length - 1; i++) {
+        if (array[i] + array[i + 1] == targetValue) {
+          list.add(new PairNumber(array[i], array[i + 1]));
+      }
+    }
+    return list;
+  }
+
+  static class PairNumber {
 
     private int num1;
     private int num2;
@@ -42,6 +55,13 @@ class CodingProblem {
       this.num2 = num2;
     }
 
+    @Override
+    public String toString() {
+      return "PairNumber{" +
+          "num1=" + num1 +
+          ", num2=" + num2 +
+          '}';
+    }
   }
 
 }

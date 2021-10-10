@@ -1,6 +1,7 @@
 # Compiled class file
 *.class
 target/
+target
 .java-version
 
 # Log file

@@ -7,6 +7,7 @@ public class CaesarCipherEncryptor {
     static int START_ALPHABET = 96;
     static int MAXIMUM_ALPHABET = 122;
 
+    // O(n) time | O(n) space
     public static String caesarCypherEncryptor(String str, int key) {
         char[] result = new char[str.length()];
 

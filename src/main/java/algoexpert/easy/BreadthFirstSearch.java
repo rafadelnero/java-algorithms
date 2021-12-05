@@ -1,11 +1,13 @@
-package algoexpert;
+package algoexpert.easy;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
-public class DepthFirstSearch {
+public class BreadthFirstSearch {
 
+    // Do not edit the class below except
+    // for the breadthFirstSearch method.
+    // Feel free to add new properties
+    // and methods to the class.
     static class Node {
         String name;
         List<Node> children = new ArrayList<>();
@@ -14,23 +16,16 @@ public class DepthFirstSearch {
             this.name = name;
         }
 
-        public List<String> depthFirstSearchWithoutRecursion(List<String> array) {
-            Stack<Node> stack = new Stack<>();
-            stack.add(this);
+        public List<String> breadthFirstSearch(List<String> array) {
+            Queue<Node> nodes = new ArrayDeque<>();
 
-            while (!stack.isEmpty()) {
-                Node currentNode = stack.pop();
-                array.add(currentNode.name);
-                stack.addAll(currentNode.children);
+            nodes.add(this);
+
+            while (!nodes.isEmpty()) {
+                Node node = nodes.poll();
+                array.add(node.name);
+                nodes.addAll(node.children);
             }
-            return array;
-        }
-
-        public List<String> depthFirstSearchWithRecursion(List<String> array) {
-            array.add(this.name);
-
-            for (Node eachNode : this.children)
-                eachNode.depthFirstSearchWithRecursion(array);
 
             return array;
         }
@@ -66,7 +61,7 @@ public class DepthFirstSearch {
             nodeF.addChild("G");
 
             List<String> output = new ArrayList<>();
-            nodeA.depthFirstSearchWithRecursion(output);
+            nodeA.breadthFirstSearch(output);
             System.out.println(output);
         }
     }

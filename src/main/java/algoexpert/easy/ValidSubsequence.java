@@ -1,4 +1,4 @@
-package algoexpert;
+package algoexpert.easy;
 
 import java.util.List;
 

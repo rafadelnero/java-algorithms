@@ -1,23 +1,21 @@
 package fundamentals.dfs;
 
 import fundamentals.graph.Node;
+import fundamentals.mocks.GraphMock;
 import java.util.Stack;
 import org.junit.jupiter.api.Test;
 
 public class DepthFirstSearchPostorder {
 
   public static void main(String[] args) {
-    Node rootNode = GraphMock.createGraphMock();
-//    dfsRecursive(rootNode);
-
-    dfsNonRecursive(TreeMock.createTreeMock());
+    dfsRecursive(GraphMock.createDfsMock());
   }
 
   @Test
-  public static void dfsRecursiveWithoutLambda(Node node) {
+  public static void dfsRecursive(Node node) {
     for (Node eachNode : node.getAdjacentNodes()) {
       if (!eachNode.isVisited()) {
-        dfsRecursiveWithoutLambda(eachNode);
+        dfsRecursive(eachNode);
       }
     }
 
@@ -25,36 +23,33 @@ public class DepthFirstSearchPostorder {
   }
 
   @Test
-  public static void dfsRecursive(Node node) {
+  public static void dfsRecursiveWithLambda(Node node) {
     node.getAdjacentNodes().stream()
         .filter(n -> !n.isVisited())
-        .forEach(DepthFirstSearchPostorder::dfsRecursive);
+        .forEach(DepthFirstSearchPostorder::dfsRecursiveWithLambda);
 
     System.out.print(node.getValue() + " ");
   }
 
   public static void dfsNonRecursive(TreeNode root) {
     Stack<TreeNode> stack = new Stack<>();
-    TreeNode prev = root;
-    TreeNode current;
     stack.push(root);
 
     while (!stack.isEmpty()) {
-      current = stack.peek();
-      boolean hasChild = current.left != null || current.right != null;
-      boolean isPrevLastChild = (prev == current.right ||
-          (prev == current.left && current.right == null));
+      TreeNode current = stack.peek();
+      var isLeaf = current.left == null && current.right == null;
 
-      if (!hasChild || isPrevLastChild) {
-        current = stack.pop();
-        System.out.print(current.value + " ");
-        prev = current;
+      if (isLeaf) {
+        TreeNode node = stack.pop();
+        System.out.print(node.value + " ");
       } else {
         if (current.right != null) {
           stack.push(current.right);
+          current.right = null;
         }
         if (current.left != null) {
           stack.push(current.left);
+          current.left = null;
         }
       }
     }

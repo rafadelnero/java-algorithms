@@ -1,13 +1,16 @@
 package fundamentals.dfs;
 
 import fundamentals.graph.Node;
+import fundamentals.mocks.GraphMock;
+import fundamentals.mocks.TreeMock;
 import java.util.Stack;
 
 public class DepthFirstSearchPreorder {
 
   public static void main(String[] args) {
-    Node rootNode = GraphMock.createGraphMock();
-    dfsRecursiveWithoutLambda(rootNode);
+    Node rootNode = GraphMock.createDfsMock();
+//    dfsRecursiveWithoutLambda(rootNode);
+    dfsRecursiveBinaryTree(TreeMock.createTreeMock());
   }
 
   public static void dfsRecursive(Node node) {
@@ -15,6 +18,14 @@ public class DepthFirstSearchPreorder {
     node.getAdjacentNodes().stream()
         .filter(n -> !n.isVisited())
         .forEach(DepthFirstSearchPreorder::dfsRecursive);
+  }
+
+  public static void dfsRecursiveBinaryTree(TreeNode node) {
+    if (node != null) {
+      System.out.print(node.value + " ");
+      dfsRecursiveBinaryTree(node.left);
+      dfsRecursiveBinaryTree(node.right);
+    }
   }
 
   public static void dfsRecursiveWithoutLambda(Node node) {

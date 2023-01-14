@@ -50,6 +50,7 @@ public class RemoveDuplicatesLinkedList {
             currentNode.next = nextDifferentNode;
             currentNode = nextDifferentNode;
         }
+
         return linkedList;
     }
 

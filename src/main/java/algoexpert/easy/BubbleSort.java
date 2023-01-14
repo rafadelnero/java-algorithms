@@ -6,49 +6,67 @@ import java.util.Arrays;
 
 public class BubbleSort {
 
-    public static int[] bubbleSort(int[] array) {
-        for (int i = 0; i < array.length; i++) {
-            for (int j = i + 1; j < array.length; j++) {
-                if (array[i] > array[j]) {
-                    var temp = array[i];
-                    array[i] = array[j];
-                    array[j] = temp;
+  public static void main(String[] args) {
+    int[] array = {2, 9, 5, 5, 6, 8, 10};
+    int[] totallyUnsortedArray = {10, 8, 6, 5, 5, 2, 1};
+    int[] alreadySortedArray = {1, 2, 3, 4, 5, 6, 7};
 
-                }
-            }
+    int[] result = sort(totallyUnsortedArray);
+//    int[] result = sortOptimized(alreadySortedArray);
+    Arrays.stream(result).forEach(e -> System.out.print(e + " "));
+  }
+
+  public static int[] sort(int[] array) {
+    int iterations = 0;
+    for (int i = 0; i < array.length; i++) {
+      iterations++;
+      for (int j = i + 1; j < array.length; j++) {
+        iterations++;
+        if (array[i] > array[j]) {
+          swapElements(array, i, j);
         }
-
-        return array;
+      }
     }
 
-    public static int[] bubbleSortOptimized(int[] array) {
-        var isSorted = false;
-        var counter = 0;
+    System.out.println("Iterations: " + iterations);
 
-        while (!isSorted) {
-            isSorted = true;
-            for (int i = 0; i < array.length - 1 - counter; i++) {
-                if (array[i] > array[i + 1]) {
-                    var temp = array[i];
-                    array[i] = array[i + 1];
-                    array[i + 1] = temp;
-                    isSorted = false;
-                }
-            }
+    return array;
+  }
 
-            counter++;
+  public static int[] sortOptimized(int[] array) {
+    int iterations = 0;
+    var isSorted = false;
+    var counter = 0;
+
+    while (!isSorted) {
+      isSorted = true;
+      for (int i = 0; i < array.length - 1 - counter; i++) {
+        iterations++;
+        if (array[i] > array[i + 1]) {
+          swapElements(array, i, i + 1);
+          isSorted = false;
         }
+      }
 
-        return array;
+      counter++;
     }
+    System.out.println("Iterations: " + iterations);
+    return array;
+  }
 
-    @Test
-    public void TestCase1() {
-        int[] expected = {2, 3, 5, 5, 6, 8, 9};
-        int[] input = {8, 5, 2, 9, 5, 6, 3};
+  private static void swapElements(int[] array, int i, int j) {
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
 
-        int[] result = bubbleSortOptimized(input);
-        Arrays.stream(result).forEach(System.out::println);
-        System.out.println(Arrays.equals(result, expected));
-    }
+  @Test
+  public void TestCase1() {
+    int[] expected = {2, 3, 5, 5, 6, 8, 9};
+    int[] input = {8, 5, 2, 9, 5, 6, 3};
+
+    int[] result = sortOptimized(input);
+    Arrays.stream(result).forEach(System.out::println);
+    System.out.println(Arrays.equals(result, expected));
+  }
 }

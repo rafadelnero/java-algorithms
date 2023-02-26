@@ -70,7 +70,6 @@ public class BinarySearch {
 
     @Test
     public void testCaseLog20() {
-        Arrays.sort();
         int [] array = new int[1048576];
         int number = 0;
         for (int i = 0; i < array.length; i++) {

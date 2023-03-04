@@ -1,5 +1,7 @@
 package fundamentals.hashtable;
 
+import java.util.Objects;
+
 public class AsciiSumHashFunction {
   String anyString;
 
@@ -15,8 +17,15 @@ public class AsciiSumHashFunction {
   }
 
   @Override
-  public boolean equals(Object obj) {
-    return this.hashCode() == obj.hashCode();
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    AsciiSumHashFunction that = (AsciiSumHashFunction) o;
+    return Objects.equals(anyString, that.anyString);
   }
 
   @Override
